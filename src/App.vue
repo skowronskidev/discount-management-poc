@@ -225,6 +225,9 @@ body {
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 70vh; /* Add explicit height */
+  min-height: 500px; /* Minimum height fallback */
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* Footer */
@@ -283,9 +286,5 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.grid-container {
-  animation: fadeIn 0.5s ease-out;
 }
 </style>
