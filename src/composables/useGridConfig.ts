@@ -4,7 +4,7 @@
  */
 
 import { ref, computed, readonly } from 'vue';
-import type { ColDef, GridOptions, ValueGetterParams } from 'ag-grid-community';
+import type { ColDef, GridOptions } from 'ag-grid-community';
 import { 
   type DiscountRecord, 
   Platform, 
@@ -14,7 +14,6 @@ import {
   CLIENT_OPTIONS,
   PLATFORM_REGION_CONSTRAINTS
 } from '../types/discount';
-import { getMonthName, calculateDaysBetween } from '../utils/dateUtils';
 
 export function useGridConfig() {
   const gridApi = ref<any>(null);
@@ -32,7 +31,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -47,7 +46,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -62,7 +61,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -81,7 +80,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -92,7 +91,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -176,7 +175,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -191,7 +190,7 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
     {
@@ -203,22 +202,18 @@ export function useGridConfig() {
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       }
     },
-    // Computed columns (not stored in database)
+    // Computed columns (pre-calculated during data loading)
     {
       headerName: 'Month',
       field: 'month',
       width: 120,
-      valueGetter: (params: ValueGetterParams) => {
-        const record = params.data as DiscountRecord;
-        return record ? getMonthName(record.startDate) : '';
-      },
       filter: 'agTextColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply'],
-        debounceMs: 300
+        debounceMs: 500
       },
       cellStyle: { 
         backgroundColor: '#f0f8ff',
@@ -229,10 +224,6 @@ export function useGridConfig() {
       headerName: 'Length (Days)',
       field: 'length',
       width: 120,
-      valueGetter: (params: ValueGetterParams) => {
-        const record = params.data as DiscountRecord;
-        return record ? calculateDaysBetween(record.startDate, record.endDate) : 0;
-      },
       filter: 'agNumberColumnFilter',
       filterParams: {
         buttons: ['reset', 'apply']
@@ -249,16 +240,16 @@ export function useGridConfig() {
    */
   const defaultGridOptions = computed((): GridOptions => ({
     // Performance optimizations
-    animateRows: true,
+    animateRows: false,
     enableCellTextSelection: true,
-    suppressColumnVirtualisation: false,
+    suppressColumnVirtualisation: true,
     suppressRowVirtualisation: false,
-    rowBuffer: 10,
+    rowBuffer: 5,
     
     // Pagination
     pagination: true,
-    paginationPageSize: 100,
-    paginationPageSizeSelector: [50, 100, 200, 500],
+    paginationPageSize: 50,
+    paginationPageSizeSelector: [25, 50, 100, 200],
     
     // Selection (using new v32+ API)
     rowSelection: {
@@ -274,8 +265,7 @@ export function useGridConfig() {
     },
     
     // Editing
-    editType: 'fullRow',
-    suppressClickEdit: false,
+    suppressClickEdit: true,
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
     

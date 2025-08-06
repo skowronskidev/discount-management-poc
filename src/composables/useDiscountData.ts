@@ -34,9 +34,17 @@ export function useDiscountData() {
       
       // Generate data based on count
       const data = count <= 5000 ? generateTestData(count) : generateMockData(count);
-      rawData.value = data;
       
-      console.log(`Loaded ${data.length} discount records`);
+      // Pre-calculate computed fields for better performance
+      const dataWithComputedFields = data.map(record => ({
+        ...record,
+        month: getMonthName(record.startDate),
+        length: calculateDaysBetween(record.startDate, record.endDate)
+      }));
+      
+      rawData.value = dataWithComputedFields;
+      
+      console.log(`Loaded ${dataWithComputedFields.length} discount records with pre-calculated fields`);
     } catch (err) {
       error.value = err instanceof Error ? err.message : 'Failed to load data';
       console.error('Error loading data:', err);
@@ -46,20 +54,15 @@ export function useDiscountData() {
   }
 
   /**
-   * Add computed fields to records
-   */
-  function addComputedFields(records: DiscountRecord[]): DiscountRecord[] {
-    return records.map(record => ({
-      ...record,
-      month: getMonthName(record.startDate),
-      length: calculateDaysBetween(record.startDate, record.endDate)
-    }));
-  }
-
-  /**
    * Filtered data based on current filters
+   * Optimized to skip computation when no filters are active
    */
   const filteredData = computed(() => {
+    // If no filters are active, return raw data directly for better performance
+    if (Object.keys(filters).length === 0) {
+      return rawData.value;
+    }
+    
     let result = rawData.value;
     
     // Apply filters
@@ -74,8 +77,7 @@ export function useDiscountData() {
       }
     });
     
-    // Add computed fields
-    return addComputedFields(result);
+    return result;
   });
 
   /**
@@ -125,12 +127,20 @@ export function useDiscountData() {
   }
 
   /**
-   * Update a single record
+   * Update a single record with optimized performance
    */
   function updateRecord(updatedRecord: DiscountRecord) {
     const index = rawData.value.findIndex(record => record.clientId === updatedRecord.clientId);
     if (index !== -1) {
-      rawData.value[index] = { ...updatedRecord };
+      // Pre-calculate computed fields
+      const recordWithComputedFields = {
+        ...updatedRecord,
+        month: getMonthName(updatedRecord.startDate),
+        length: calculateDaysBetween(updatedRecord.startDate, updatedRecord.endDate)
+      };
+      
+      // Use direct assignment for better performance
+      rawData.value[index] = recordWithComputedFields;
       console.log('Record updated:', updatedRecord.clientId);
     }
   }
@@ -155,10 +165,16 @@ export function useDiscountData() {
   }
 
   /**
-   * Add a new record
+   * Add a new record with computed fields
    */
   function addRecord(newRecord: DiscountRecord) {
-    rawData.value.push(newRecord);
+    const recordWithComputedFields = {
+      ...newRecord,
+      month: getMonthName(newRecord.startDate),
+      length: calculateDaysBetween(newRecord.startDate, newRecord.endDate)
+    };
+    
+    rawData.value.push(recordWithComputedFields);
     console.log('Record added:', newRecord.clientId);
   }
 
