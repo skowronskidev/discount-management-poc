@@ -5,6 +5,7 @@
       <ag-grid-vue
         :columnDefs="gridConfig.columnDefs.value"
         :gridOptions="gridConfig.defaultGridOptions.value"
+        :rowData="discountData.filteredData.value"
         @grid-ready="onGridReady"
         @cell-value-changed="onCellValueChanged"
         @selection-changed="onSelectionChanged"
@@ -75,10 +76,10 @@ const gridHeight = computed(() => props.height);
 const selectedRows = ref<DiscountRecord[]>([]);
 
 // Watch for data changes and refresh grid
-watch(() => discountData.filteredData.value.length, (newLength, oldLength) => {
-  if (gridApi.value && newLength > 0 && oldLength === 0) {
-    console.log('Refreshing grid with new data');
-    gridApi.value.setGridOption('rowData', discountData.filteredData.value);
+watch(() => discountData.filteredData.value.length, (newLength) => {
+  if (gridApi.value && newLength > 0) {
+    console.log('Data updated, grid will refresh automatically via rowData binding');
+    // Grid will refresh automatically due to :rowData binding
   }
 }, { immediate: false });
 
@@ -92,11 +93,8 @@ function onGridReady(params: any) {
   gridApi.value = params.api;
   emit('gridReady', params.api);
   
-  // If data is already available, set it immediately
-  if (discountData.filteredData.value.length > 0) {
-    console.log('Setting initial data to grid');
-    params.api.setGridOption('rowData', discountData.filteredData.value);
-  }
+  // Data will be set automatically via :rowData binding
+  console.log('Grid initialized with rowData binding');
   
   // Auto-size columns on initial load
   setTimeout(() => {
@@ -246,6 +244,29 @@ defineExpose({
 .discount-grid {
   position: relative;
   width: 100%;
+  height: 100%;
+}
+
+/* Fix for AG-Grid height inheritance */
+.ag-theme-alpine {
+  height: 100% !important;
+}
+
+/* Ensure AG-Grid internal containers inherit height */
+:deep(.ag-root-wrapper) {
+  height: 100% !important;
+}
+
+:deep(.ag-layout-normal) {
+  height: 100% !important;
+}
+
+:deep(.ag-center-cols-clipper) {
+  height: 100% !important;
+}
+
+:deep(.ag-center-cols-viewport) {
+  height: 100% !important;
 }
 
 .loading-overlay,
