@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, nextTick } from 'vue';
 import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -106,20 +106,26 @@ function onGridReady(params: any) {
 }
 
 /**
- * Handle cell value changes (editing)
+ * Handle cell value changes (editing) with async optimization
  */
 function onCellValueChanged(params: any) {
   const updatedRecord = params.data as DiscountRecord;
   
-  // Validate the change
-  if (validateRecord(updatedRecord)) {
-    discountData.updateRecord(updatedRecord);
-    console.log('Record updated:', updatedRecord.clientId);
-  } else {
-    // Revert the change if validation fails
-    params.api.refreshCells({ rowNodes: [params.node] });
+  // Quick validation before triggering updates
+  if (!validateRecord(updatedRecord)) {
+    // Revert the change if validation fails - minimal revert strategy
+    nextTick(() => {
+      params.api.refreshCells({ rowNodes: [params.node] });
+    });
     console.warn('Invalid record data, change reverted');
+    return;
   }
+  
+  // Make the update asynchronous to prevent UI blocking
+  setTimeout(() => {
+    discountData.updateRecord(updatedRecord);
+    console.log('Record updated asynchronously:', updatedRecord.clientId);
+  }, 0);
 }
 
 /**
