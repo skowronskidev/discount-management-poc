@@ -5,6 +5,7 @@
       <ag-grid-vue
         :columnDefs="gridConfig.columnDefs.value"
         :gridOptions="gridConfig.defaultGridOptions.value"
+        :rowData="discountData.filteredData.value"
         @grid-ready="onGridReady"
         @cell-value-changed="onCellValueChanged"
         @selection-changed="onSelectionChanged"
@@ -246,6 +247,28 @@ defineExpose({
 .discount-grid {
   position: relative;
   width: 100%;
+}
+
+.discount-grid .ag-theme-alpine {
+  min-height: 400px; /* Ensure minimum height */
+  width: 100%;
+}
+
+/* Fix for AG-Grid height inheritance */
+:deep(.ag-root-wrapper) {
+  height: 100% !important;
+}
+
+:deep(.ag-layout-normal) {
+  height: 100% !important;
+}
+
+:deep(.ag-center-cols-clipper) {
+  height: 100% !important;
+}
+
+:deep(.ag-center-cols-viewport) {
+  height: 100% !important;
 }
 
 .loading-overlay,

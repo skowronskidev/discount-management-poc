@@ -110,7 +110,7 @@ function clearFilters() {
 
     <!-- Main Content -->
     <main class="main-content">
-      <div class="container">
+      <div class="container-fluid">
         <!-- Filter Panel -->
         <FilterPanel
           :selectedCount="selectedCount"
