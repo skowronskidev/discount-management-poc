@@ -33,9 +33,7 @@ export function useGridConfig() {
       filterParams: {
         buttons: ['reset', 'apply'],
         debounceMs: 300
-      },
-      checkboxSelection: true,
-      headerCheckboxSelection: true
+      }
     },
     {
       headerName: 'Client',
@@ -46,9 +44,10 @@ export function useGridConfig() {
       cellEditorParams: {
         values: CLIENT_OPTIONS
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       }
     },
     {
@@ -60,9 +59,10 @@ export function useGridConfig() {
       cellEditorParams: {
         values: Object.values(Platform)
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       }
     },
     {
@@ -78,9 +78,10 @@ export function useGridConfig() {
         }
         return { values: Object.values(Region) };
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       }
     },
     {
@@ -172,9 +173,10 @@ export function useGridConfig() {
       cellEditorParams: {
         values: Object.values(ImplementationStatus)
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       }
     },
     {
@@ -186,9 +188,10 @@ export function useGridConfig() {
       cellEditorParams: {
         values: Object.values(SalesEventStatus)
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       }
     },
     {
@@ -212,9 +215,10 @@ export function useGridConfig() {
         const record = params.data as DiscountRecord;
         return record ? getMonthName(record.startDate) : '';
       },
-      filter: 'agSetColumnFilter',
+      filter: 'agTextColumnFilter',
       filterParams: {
-        buttons: ['reset', 'apply']
+        buttons: ['reset', 'apply'],
+        debounceMs: 300
       },
       cellStyle: { 
         backgroundColor: '#f0f8ff',
@@ -248,7 +252,6 @@ export function useGridConfig() {
     
     // Performance optimizations
     animateRows: true,
-    enableRangeSelection: true,
     enableCellTextSelection: true,
     suppressColumnVirtualisation: false,
     suppressRowVirtualisation: false,
@@ -259,9 +262,18 @@ export function useGridConfig() {
     paginationPageSize: 100,
     paginationPageSizeSelector: [50, 100, 200, 500],
     
-    // Selection
-    rowSelection: 'multiple',
-    suppressRowClickSelection: true,
+    // Selection (using new v32+ API)
+    rowSelection: {
+      mode: 'multiRow',
+      checkboxes: true,
+      headerCheckbox: true,
+      enableClickSelection: false
+    },
+    
+    // Default column definitions
+    defaultColDef: {
+      sortingOrder: ['asc', 'desc', null]
+    },
     
     // Editing
     editType: 'fullRow',
@@ -269,12 +281,8 @@ export function useGridConfig() {
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
     
-    // Sorting and filtering
-    sortingOrder: ['asc', 'desc', null],
-    
-    // Context menu
-    enableRangeHandle: true,
-    enableFillHandle: true,
+    // Theme (use legacy to avoid conflicts with CSS imports)
+    theme: 'legacy',
     
     // Styling
     rowHeight: 35,
