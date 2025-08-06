@@ -106,26 +106,27 @@ function onGridReady(params: any) {
 }
 
 /**
- * Handle cell value changes (editing) with async optimization
+ * Handle cell value changes (editing) with improved validation
  */
 function onCellValueChanged(params: any) {
-  const updatedRecord = params.data as DiscountRecord;
+  console.log('Cell editing completed:', params.colDef.field, params.newValue);
   
-  // Quick validation before triggering updates
+  const updatedRecord = { ...params.data } as DiscountRecord;
+  
+  // Update the specific field with new value
+  updatedRecord[params.colDef.field as keyof DiscountRecord] = params.newValue;
+  
+  // Validate the updated record
   if (!validateRecord(updatedRecord)) {
-    // Revert the change if validation fails - minimal revert strategy
-    nextTick(() => {
-      params.api.refreshCells({ rowNodes: [params.node] });
-    });
-    console.warn('Invalid record data, change reverted');
+    console.warn('Validation failed, reverting change');
+    // Revert to old value
+    params.node.setDataValue(params.colDef.field, params.oldValue);
     return;
   }
   
-  // Make the update asynchronous to prevent UI blocking
-  setTimeout(() => {
-    discountData.updateRecord(updatedRecord);
-    console.log('Record updated asynchronously:', updatedRecord.clientId);
-  }, 0);
+  // Update the data store
+  discountData.updateRecord(updatedRecord);
+  console.log('Record updated successfully');
 }
 
 /**
