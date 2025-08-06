@@ -33,9 +33,7 @@ export function useGridConfig() {
       filterParams: {
         buttons: ['reset', 'apply'],
         debounceMs: 300
-      },
-      checkboxSelection: true,
-      headerCheckboxSelection: true
+      }
     },
     {
       headerName: 'Client',
@@ -264,18 +262,24 @@ export function useGridConfig() {
     paginationPageSize: 100,
     paginationPageSizeSelector: [50, 100, 200, 500],
     
-    // Selection
-    rowSelection: 'multiple',
-    suppressRowClickSelection: true,
+    // Selection (using new v32+ API)
+    rowSelection: {
+      mode: 'multiRow',
+      checkboxes: true,
+      headerCheckbox: true,
+      enableClickSelection: false
+    },
+    
+    // Default column definitions
+    defaultColDef: {
+      sortingOrder: ['asc', 'desc', null]
+    },
     
     // Editing
     editType: 'fullRow',
     suppressClickEdit: false,
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
-    
-    // Sorting and filtering
-    sortingOrder: ['asc', 'desc', null],
     
     // Theme (use legacy to avoid conflicts with CSS imports)
     theme: 'legacy',
