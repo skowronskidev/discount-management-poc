@@ -4,7 +4,6 @@
     <div class="ag-theme-alpine" :style="{ height: gridHeight }">
       <ag-grid-vue
         :columnDefs="gridConfig.columnDefs.value"
-        :rowData="discountData.filteredData.value"
         :gridOptions="gridConfig.defaultGridOptions.value"
         @grid-ready="onGridReady"
         @cell-value-changed="onCellValueChanged"
@@ -33,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -66,18 +65,38 @@ const emit = defineEmits<{
 const gridConfig = useGridConfig();
 const discountData = discountDataStore;
 
+// Grid API reference
+const gridApi = ref<any>(null);
+
 // Grid height calculation
 const gridHeight = computed(() => props.height);
 
 // Selected rows tracking
 const selectedRows = ref<DiscountRecord[]>([]);
 
+// Watch for data changes and refresh grid
+watch(() => discountData.filteredData.value.length, (newLength, oldLength) => {
+  if (gridApi.value && newLength > 0 && oldLength === 0) {
+    console.log('Refreshing grid with new data');
+    gridApi.value.setGridOption('rowData', discountData.filteredData.value);
+  }
+}, { immediate: false });
+
 /**
  * Handle grid ready event
  */
 function onGridReady(params: any) {
   console.log('Grid is ready with', discountData.filteredData.value.length, 'rows');
+  
+  // Store grid API reference
+  gridApi.value = params.api;
   emit('gridReady', params.api);
+  
+  // If data is already available, set it immediately
+  if (discountData.filteredData.value.length > 0) {
+    console.log('Setting initial data to grid');
+    params.api.setGridOption('rowData', discountData.filteredData.value);
+  }
   
   // Auto-size columns on initial load
   setTimeout(() => {

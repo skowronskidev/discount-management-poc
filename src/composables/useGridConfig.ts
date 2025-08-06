@@ -248,8 +248,6 @@ export function useGridConfig() {
    * Default grid options optimized for performance
    */
   const defaultGridOptions = computed((): GridOptions => ({
-    columnDefs: columnDefs.value,
-    
     // Performance optimizations
     animateRows: true,
     enableCellTextSelection: true,
@@ -280,9 +278,6 @@ export function useGridConfig() {
     suppressClickEdit: false,
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
-    
-    // Theme (use legacy to avoid conflicts with CSS imports)
-    theme: 'legacy',
     
     // Styling
     rowHeight: 35,
