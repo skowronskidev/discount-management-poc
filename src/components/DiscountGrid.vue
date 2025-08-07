@@ -106,27 +106,70 @@ function onGridReady(params: any) {
 }
 
 /**
+ * Quick validation for individual fields
+ */
+function quickValidateField(fieldName: string, value: any, record: DiscountRecord): boolean {
+  switch (fieldName) {
+    case 'percent':
+      return value >= 0 && value <= 100;
+    case 'client':
+    case 'platform':
+    case 'region':
+      return value && value.trim().length > 0;
+    case 'startDate':
+    case 'endDate':
+    case 'deadline':
+      return !value || /^\d{4}-\d{2}-\d{2}$/.test(value);
+    default:
+      return true; // Skip validation for other fields
+  }
+}
+
+/**
+ * Determine if full validation is needed
+ */
+function needsFullValidation(fieldName: string): boolean {
+  // Only run expensive validation for critical fields
+  return ['startDate', 'endDate', 'percent'].includes(fieldName);
+}
+
+/**
  * Handle cell value changes (editing) with improved validation
  */
 function onCellValueChanged(params: any) {
   console.log('Cell editing completed:', params.colDef.field, params.newValue);
   
-  const updatedRecord = { ...params.data } as DiscountRecord;
+  // Quick validation first (synchronous)
+  const isValid = quickValidateField(params.colDef.field, params.newValue, params.data);
   
-  // Update the specific field with new value
+  if (!isValid) {
+    console.warn('Quick validation failed, reverting change');
+    params.node.setDataValue(params.colDef.field, params.oldValue);
+    return;
+  }
+  
+  // Create updated record efficiently
+  const updatedRecord = { ...params.data };
   updatedRecord[params.colDef.field as keyof DiscountRecord] = params.newValue;
   
-  // Validate the updated record
+  // Skip expensive validation for simple edits
+  if (!needsFullValidation(params.colDef.field)) {
+    // Direct update for simple fields
+    discountData.updateRecord(updatedRecord);
+    console.log('Record updated (fast path):', updatedRecord.clientId);
+    return;
+  }
+  
+  // Full validation only for complex fields
   if (!validateRecord(updatedRecord)) {
-    console.warn('Validation failed, reverting change');
-    // Revert to old value
+    console.warn('Full validation failed, reverting change');
     params.node.setDataValue(params.colDef.field, params.oldValue);
     return;
   }
   
   // Update the data store
   discountData.updateRecord(updatedRecord);
-  console.log('Record updated successfully');
+  console.log('Record updated (full validation):', updatedRecord.clientId);
 }
 
 /**
@@ -371,5 +414,52 @@ defineExpose({
 /* Pinned column styling */
 :deep(.ag-pinned-left-cols-container) {
   border-right: 2px solid #dee2e6;
+}
+
+/* AG-Grid Select Editor Dropdown Styling */
+:deep(.ag-select-list) {
+  background: white;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+:deep(.ag-select-list-item) {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+:deep(.ag-select-list-item:hover) {
+  background-color: #e3f2fd !important;
+  color: #0056b3;
+}
+
+:deep(.ag-select-list-item:last-child) {
+  border-bottom: none;
+}
+
+:deep(.ag-select-list-item.ag-select-list-item-selected) {
+  background-color: #007bff !important;
+  color: white;
+}
+
+/* Improve cell editor input styling */
+:deep(.ag-cell-editor input) {
+  border: 2px solid #007bff !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+:deep(.ag-cell-editor select) {
+  border: 2px solid #007bff !important;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+  background: white;
 }
 </style>

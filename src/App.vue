@@ -135,7 +135,7 @@ function clearFilters() {
           <DiscountGrid
             ref="gridRef"
             height="70vh"
-            :recordCount="100000"
+            :recordCount="10000"
             @gridReady="onGridReady"
             @selectionChanged="onSelectionChanged"
             @dataChanged="onDataChanged"

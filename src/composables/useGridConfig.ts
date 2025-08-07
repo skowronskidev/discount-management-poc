@@ -280,6 +280,10 @@ export function useGridConfig() {
     // Better editor handling
     suppressCellFocus: false,
     ensureDomOrder: true,
+
+    // Faster cell rendering
+    suppressAnimationFrame: false,
+    suppressAsyncEvents: false,
     
     // Styling
     rowHeight: 35,
