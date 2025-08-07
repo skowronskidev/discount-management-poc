@@ -169,8 +169,8 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
               'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background-color: var(--color-app-background);
+  color: var(--color-text);
   line-height: 1.6;
 }
 
@@ -188,7 +188,7 @@ body {
 
 /* Header styles */
 .app-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-header-background);
   color: white;
   padding: 2rem 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -221,7 +221,7 @@ body {
 }
 
 .grid-container {
-  background: white;
+  background: var(--color-card-background);
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -229,8 +229,8 @@ body {
 
 /* Footer */
 .app-footer {
-  background: #343a40;
-  color: #adb5bd;
+  background: var(--color-footer-background);
+  color: var(--color-footer-text);
   padding: 1.5rem 0;
   text-align: center;
   margin-top: auto;

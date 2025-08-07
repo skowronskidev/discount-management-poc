@@ -232,8 +232,8 @@ onUnmounted(() => {
 
 <style scoped>
 .filter-panel {
-  background: white;
-  border: 1px solid #dee2e6;
+  background: var(--color-card-background);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -245,12 +245,12 @@ onUnmounted(() => {
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .filter-header h3 {
   margin: 0;
-  color: #495057;
+  color: var(--color-heading);
 }
 
 .filter-stats {
@@ -261,23 +261,23 @@ onUnmounted(() => {
 }
 
 .stat-card {
-  background: #f8f9fa;
+  background: var(--color-background-soft);
   padding: 1rem;
   border-radius: 6px;
   text-align: center;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
 }
 
 .stat-value {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #007bff;
+  color: var(--color-button-primary);
   margin-bottom: 0.25rem;
 }
 
 .stat-label {
   font-size: 0.875rem;
-  color: #6c757d;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -288,7 +288,7 @@ onUnmounted(() => {
 
 .filter-info h4 {
   margin: 0 0 1rem 0;
-  color: #495057;
+  color: var(--color-heading);
   font-size: 1rem;
 }
 
@@ -299,8 +299,8 @@ onUnmounted(() => {
 }
 
 .filter-tag {
-  background: #e3f2fd;
-  border: 1px solid #bbdefb;
+  background: var(--color-background-mute);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   padding: 0.25rem 0.75rem;
   font-size: 0.875rem;
@@ -311,11 +311,11 @@ onUnmounted(() => {
 
 .filter-field {
   font-weight: 600;
-  color: #1976d2;
+  color: var(--color-button-primary);
 }
 
 .filter-values {
-  color: #424242;
+  color: var(--color-text);
 }
 
 .remove-filter {
@@ -323,7 +323,7 @@ onUnmounted(() => {
   border: none;
   font-size: 1.25rem;
   cursor: pointer;
-  color: #666;
+  color: var(--color-text-secondary);
   padding: 0;
   line-height: 1;
   width: 18px;
@@ -335,8 +335,8 @@ onUnmounted(() => {
 }
 
 .remove-filter:hover {
-  background: rgba(0, 0, 0, 0.1);
-  color: #000;
+  background: var(--color-border-hover);
+  color: var(--color-text);
 }
 
 .quick-actions {
@@ -345,7 +345,7 @@ onUnmounted(() => {
 
 .quick-actions h4 {
   margin: 0 0 1rem 0;
-  color: #495057;
+  color: var(--color-heading);
   font-size: 1rem;
 }
 
@@ -357,7 +357,7 @@ onUnmounted(() => {
 
 .performance-info h4 {
   margin: 0 0 1rem 0;
-  color: #495057;
+  color: var(--color-heading);
   font-size: 1rem;
 }
 
@@ -371,33 +371,34 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  background: #f8f9fa;
+  background: var(--color-background-soft);
   border-radius: 4px;
   font-size: 0.875rem;
 }
 
 .perf-label {
-  color: #6c757d;
+  color: var(--color-text-secondary);
 }
 
 .perf-value {
   font-weight: 600;
-  color: #495057;
+  color: var(--color-text);
 }
 
 .btn {
   padding: 0.5rem 1rem;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  background: white;
+  background: var(--color-card-background);
+  color: var(--color-text);
   cursor: pointer;
   font-size: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .btn:hover:not(:disabled) {
-  background: #f8f9fa;
-  border-color: #adb5bd;
+  background: var(--color-background-soft);
+  border-color: var(--color-border-hover);
 }
 
 .btn:disabled {
@@ -406,12 +407,12 @@ onUnmounted(() => {
 }
 
 .btn-outline {
-  border-color: #007bff;
-  color: #007bff;
+  border-color: var(--color-button-primary);
+  color: var(--color-button-primary);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background: #007bff;
+  background: var(--color-button-primary);
   color: white;
 }
 
