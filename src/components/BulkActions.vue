@@ -323,8 +323,8 @@ function clearForm() {
 
 <style scoped>
 .bulk-actions {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  background: var(--color-background-soft);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -336,22 +336,22 @@ function clearForm() {
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .bulk-actions-header h3 {
   margin: 0;
-  color: #495057;
+  color: var(--color-heading);
 }
 
 .selection-info {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: var(--color-text-secondary);
 }
 
 .selected-count {
   font-weight: 600;
-  color: #007bff;
+  color: var(--color-button-primary);
 }
 
 .bulk-section {
@@ -364,15 +364,15 @@ function clearForm() {
 
 .bulk-section h4 {
   margin: 0 0 1rem 0;
-  color: #495057;
+  color: var(--color-heading);
   font-size: 1.1rem;
 }
 
 .bulk-form {
-  background: white;
+  background: var(--color-card-background);
   padding: 1rem;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
 }
 
 .form-row {
@@ -389,21 +389,23 @@ function clearForm() {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #495057;
+  color: var(--color-text);
 }
 
 .form-group input {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   font-size: 0.9rem;
+  background: var(--color-card-background);
+  color: var(--color-text);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-button-primary);
+  box-shadow: 0 0 0 2px rgba(74, 171, 247, 0.25);
 }
 
 .form-actions {
@@ -428,52 +430,52 @@ function clearForm() {
 }
 
 .btn-primary {
-  background: #007bff;
+  background: var(--color-button-primary);
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #0056b3;
+  background: var(--color-button-primary-hover);
 }
 
 .btn-secondary {
-  background: #6c757d;
+  background: var(--color-button-secondary);
   color: white;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: #545b62;
+  background: var(--color-button-secondary-hover);
 }
 
 .btn-danger {
-  background: #dc3545;
+  background: var(--color-button-danger);
   color: white;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: #c82333;
+  background: var(--color-button-danger-hover);
 }
 
 .btn-info {
-  background: #17a2b8;
+  background: var(--color-button-info);
   color: white;
   margin-right: 0.5rem;
 }
 
 .btn-info:hover:not(:disabled) {
-  background: #138496;
+  background: var(--color-button-info-hover);
 }
 
 .delete-section,
 .export-section {
-  background: white;
+  background: var(--color-card-background);
   padding: 1rem;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
 }
 
 .warning-text {
-  color: #dc3545;
+  color: var(--color-button-danger);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -485,17 +487,17 @@ function clearForm() {
 }
 
 .progress-section {
-  background: white;
+  background: var(--color-card-background);
   padding: 1rem;
   border-radius: 6px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
   margin-bottom: 1rem;
 }
 
 .progress-bar {
   width: 100%;
   height: 20px;
-  background: #e9ecef;
+  background: var(--color-border);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -503,14 +505,14 @@ function clearForm() {
 
 .progress-fill {
   height: 100%;
-  background: #007bff;
+  background: var(--color-button-primary);
   transition: width 0.3s ease;
 }
 
 .progress-text {
   text-align: center;
   margin: 0;
-  color: #495057;
+  color: var(--color-text);
 }
 
 .result-section {
@@ -525,15 +527,15 @@ function clearForm() {
 }
 
 .result-message.success {
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success-border);
+  color: var(--color-success-text);
 }
 
 .result-message.error {
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
 }
 
 .close-btn {
@@ -548,9 +550,9 @@ function clearForm() {
 }
 
 .error-section {
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-  color: #721c24;
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error-text);
   padding: 1rem;
   border-radius: 6px;
 }

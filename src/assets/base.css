@@ -32,6 +32,33 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+  --color-text-secondary: var(--vt-c-text-light-2);
+
+  /* App specific colors */
+  --color-app-background: #f5f7fa;
+  --color-header-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-footer-background: #343a40;
+  --color-footer-text: #adb5bd;
+  --color-card-background: var(--vt-c-white);
+  --color-overlay-background: rgba(255, 255, 255, 0.9);
+  
+  /* Button colors */
+  --color-button-primary: #007bff;
+  --color-button-primary-hover: #0056b3;
+  --color-button-secondary: #6c757d;
+  --color-button-secondary-hover: #545b62;
+  --color-button-danger: #dc3545;
+  --color-button-danger-hover: #c82333;
+  --color-button-info: #17a2b8;
+  --color-button-info-hover: #138496;
+  
+  /* Status colors */
+  --color-success-bg: #d4edda;
+  --color-success-border: #c3e6cb;
+  --color-success-text: #155724;
+  --color-error-bg: #f8d7da;
+  --color-error-border: #f5c6cb;
+  --color-error-text: #721c24;
 
   --section-gap: 160px;
 }
@@ -46,7 +73,34 @@
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--vt-c-text-dark-1);
+    --color-text-secondary: var(--vt-c-text-dark-2);
+
+    /* App specific dark colors */
+    --color-app-background: var(--vt-c-black);
+    --color-header-background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --color-footer-background: var(--vt-c-black-soft);
+    --color-footer-text: var(--vt-c-text-dark-2);
+    --color-card-background: var(--vt-c-black-soft);
+    --color-overlay-background: rgba(34, 34, 34, 0.9);
+    
+    /* Button colors for dark mode */
+    --color-button-primary: #4dabf7;
+    --color-button-primary-hover: #339af0;
+    --color-button-secondary: #868e96;
+    --color-button-secondary-hover: #adb5bd;
+    --color-button-danger: #ff6b6b;
+    --color-button-danger-hover: #ff5252;
+    --color-button-info: #22d3ee;
+    --color-button-info-hover: #06b6d4;
+    
+    /* Status colors for dark mode */
+    --color-success-bg: #1a3a1a;
+    --color-success-border: #2d5a2d;
+    --color-success-text: #69db7c;
+    --color-error-bg: #3a1a1a;
+    --color-error-border: #5a2d2d;
+    --color-error-text: #ff8787;
   }
 }
 
@@ -83,4 +137,25 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* AG-Grid dark mode customization */
+@media (prefers-color-scheme: dark) {
+  .ag-theme-alpine {
+    --ag-foreground-color: var(--vt-c-text-dark-1);
+    --ag-background-color: var(--vt-c-black-soft);
+    --ag-header-foreground-color: var(--vt-c-text-dark-1);
+    --ag-header-background-color: var(--vt-c-black-mute);
+    --ag-odd-row-background-color: var(--vt-c-black);
+    --ag-control-panel-background-color: var(--vt-c-black-soft);
+    --ag-subheader-background-color: var(--vt-c-black-mute);
+    --ag-selected-row-background-color: rgba(74, 171, 247, 0.3);
+    --ag-row-hover-color: var(--vt-c-black-mute);
+    --ag-column-hover-color: var(--vt-c-black-mute);
+    --ag-range-selection-background-color: rgba(74, 171, 247, 0.2);
+    --ag-border-color: var(--vt-c-divider-dark-1);
+    --ag-secondary-border-color: var(--vt-c-divider-dark-2);
+    --ag-modal-overlay-background-color: rgba(34, 34, 34, 0.6);
+    --ag-popup-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
 }

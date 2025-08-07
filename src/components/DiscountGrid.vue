@@ -328,7 +328,7 @@ defineExpose({
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-overlay-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,7 +339,8 @@ defineExpose({
 .error-content {
   text-align: center;
   padding: 2rem;
-  background: white;
+  background: var(--color-card-background);
+  color: var(--color-text);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -347,8 +348,8 @@ defineExpose({
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #007bff;
+  border: 4px solid var(--color-border);
+  border-top: 4px solid var(--color-button-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 1rem;
@@ -360,12 +361,12 @@ defineExpose({
 }
 
 .error-content h3 {
-  color: #dc3545;
+  color: var(--color-button-danger);
   margin-bottom: 1rem;
 }
 
 .retry-btn {
-  background: #007bff;
+  background: var(--color-button-primary);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -376,7 +377,7 @@ defineExpose({
 }
 
 .retry-btn:hover {
-  background: #0056b3;
+  background: var(--color-button-primary-hover);
 }
 
 /* AG-Grid theme customizations */
@@ -418,8 +419,8 @@ defineExpose({
 
 /* AG-Grid Select Editor Dropdown Styling */
 :deep(.ag-select-list) {
-  background: white;
-  border: 1px solid #ced4da;
+  background: var(--color-card-background);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   max-height: 200px;
@@ -430,12 +431,13 @@ defineExpose({
   padding: 8px 12px;
   cursor: pointer;
   transition: background-color 0.15s ease;
-  border-bottom: 1px solid #f8f9fa;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 :deep(.ag-select-list-item:hover) {
-  background-color: #e3f2fd !important;
-  color: #0056b3;
+  background-color: var(--color-background-mute) !important;
+  color: var(--color-button-primary);
 }
 
 :deep(.ag-select-list-item:last-child) {
@@ -443,23 +445,26 @@ defineExpose({
 }
 
 :deep(.ag-select-list-item.ag-select-list-item-selected) {
-  background-color: #007bff !important;
+  background-color: var(--color-button-primary) !important;
   color: white;
 }
 
 /* Improve cell editor input styling */
 :deep(.ag-cell-editor input) {
-  border: 2px solid #007bff !important;
+  border: 2px solid var(--color-button-primary) !important;
   border-radius: 4px;
   padding: 4px 8px;
   font-size: 14px;
+  background: var(--color-card-background);
+  color: var(--color-text);
 }
 
 :deep(.ag-cell-editor select) {
-  border: 2px solid #007bff !important;
+  border: 2px solid var(--color-button-primary) !important;
   border-radius: 4px;
   padding: 4px 8px;
   font-size: 14px;
-  background: white;
+  background: var(--color-card-background);
+  color: var(--color-text);
 }
 </style>

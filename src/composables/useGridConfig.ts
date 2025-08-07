@@ -266,7 +266,6 @@ export function useGridConfig() {
     
     // Editing configuration
     suppressClickEdit: false, // Allow single-click editing
-    editType: 'cell', // Cell-by-cell editing for dropdown compatibility
     stopEditingWhenCellsLoseFocus: true, // Exit edit mode when clicking elsewhere
     undoRedoCellEditing: true, // Enable undo/redo
     undoRedoCellEditingLimit: 20,
@@ -274,8 +273,6 @@ export function useGridConfig() {
     // Navigation
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
-    tabToNextCell: true,
-    tabToNextHeader: false,
     
     // Better editor handling
     suppressCellFocus: false,
@@ -283,7 +280,6 @@ export function useGridConfig() {
 
     // Faster cell rendering
     suppressAnimationFrame: false,
-    suppressAsyncEvents: false,
     
     // Styling
     rowHeight: 35,
