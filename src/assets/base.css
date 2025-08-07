@@ -138,3 +138,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* AG-Grid dark mode customization */
+@media (prefers-color-scheme: dark) {
+  .ag-theme-alpine {
+    --ag-foreground-color: var(--vt-c-text-dark-1);
+    --ag-background-color: var(--vt-c-black-soft);
+    --ag-header-foreground-color: var(--vt-c-text-dark-1);
+    --ag-header-background-color: var(--vt-c-black-mute);
+    --ag-odd-row-background-color: var(--vt-c-black);
+    --ag-control-panel-background-color: var(--vt-c-black-soft);
+    --ag-subheader-background-color: var(--vt-c-black-mute);
+    --ag-selected-row-background-color: rgba(74, 171, 247, 0.3);
+    --ag-row-hover-color: var(--vt-c-black-mute);
+    --ag-column-hover-color: var(--vt-c-black-mute);
+    --ag-range-selection-background-color: rgba(74, 171, 247, 0.2);
+    --ag-border-color: var(--vt-c-divider-dark-1);
+    --ag-secondary-border-color: var(--vt-c-divider-dark-2);
+    --ag-modal-overlay-background-color: rgba(34, 34, 34, 0.6);
+    --ag-popup-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+}

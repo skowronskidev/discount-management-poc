@@ -1,7 +1,7 @@
 <template>
   <div class="discount-grid">
     <!-- Grid Container -->
-    <div :class="gridThemeClass" :style="{ height: gridHeight }">
+    <div class="ag-theme-alpine" :style="{ height: gridHeight }">
       <ag-grid-vue
         :columnDefs="gridConfig.columnDefs.value"
         :gridOptions="gridConfig.defaultGridOptions.value"
@@ -37,7 +37,6 @@ import { ref, onMounted, computed, watch, nextTick } from 'vue';
 import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import 'ag-grid-community/styles/ag-theme-alpine-dark.css';
 
 import { useGridConfig } from '../composables/useGridConfig';
 import { discountDataStore } from '../composables/useDiscountData';
@@ -72,14 +71,6 @@ const gridApi = ref<any>(null);
 
 // Grid height calculation
 const gridHeight = computed(() => props.height);
-
-// Grid theme calculation (responsive to system preference)
-const gridThemeClass = computed(() => {
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'ag-theme-alpine-dark';
-  }
-  return 'ag-theme-alpine';
-});
 
 // Selected rows tracking
 const selectedRows = ref<DiscountRecord[]>([]);
