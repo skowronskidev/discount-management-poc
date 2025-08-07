@@ -264,10 +264,22 @@ export function useGridConfig() {
       sortingOrder: ['asc', 'desc', null]
     },
     
-    // Editing
-    suppressClickEdit: true,
+    // Editing configuration
+    suppressClickEdit: false, // Allow single-click editing
+    editType: 'cell', // Cell-by-cell editing for dropdown compatibility
+    stopEditingWhenCellsLoseFocus: true, // Exit edit mode when clicking elsewhere
+    undoRedoCellEditing: true, // Enable undo/redo
+    undoRedoCellEditingLimit: 20,
+    
+    // Navigation
     enterNavigatesVertically: true,
     enterNavigatesVerticallyAfterEdit: true,
+    tabToNextCell: true,
+    tabToNextHeader: false,
+    
+    // Better editor handling
+    suppressCellFocus: false,
+    ensureDomOrder: true,
     
     // Styling
     rowHeight: 35,
@@ -281,6 +293,18 @@ export function useGridConfig() {
     
     onCellValueChanged: (params) => {
       console.log('Cell value changed:', params);
+    },
+    
+    onCellEditingStarted: (params) => {
+      console.log('Cell editing started:', params.colDef.field);
+    },
+
+    onCellEditingStopped: (params) => {
+      console.log('Cell editing stopped:', params.colDef.field);
+    },
+
+    onCellEditRequest: (params) => {
+      console.log('Cell edit requested:', params);
     },
     
     onSelectionChanged: (params) => {
